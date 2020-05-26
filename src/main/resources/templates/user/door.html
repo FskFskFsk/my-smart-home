@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+
+<body>
+<!--引入topbar-->
+<div th:replace="commons/devicebar::topbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--引入sidebar-->
+        <div th:replace="commons/devicebar::#sidebar(activeUri='door')"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">门窗磁</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-outline-secondary">Share</button>
+                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        This week
+                    </button>
+                </div>
+            </div>
+            <div style="float:left;width:30%; height:300px;
+            margin:3px 2% 0px 10px;border-style:solid;border-width:1px;">
+                <div style="margin-top: 3px;margin-left: 5px"><h6 style="font-family: 'Adobe Arabic'">当前状态</h6></div>
+                <div style="margin-top: 30px;margin-left:20%;">
+
+
+                    <tr th:each="doors:${door}">
+                        <h3 style="font-family: 'Adobe Arabic'">门状态：
+                            <label type="text" id="111" th:text="${door.doorctrl}==1?'Open':'Close'"></label><br>
+                        </h3>
+                    </tr>
+                    <br><br>
+                    <tr th:each="doors:${door}">
+                        <h3 style="font-family: 'Adobe Arabic'">窗状态：
+                            <label type="text" id="222" th:text="${door.windowctrl}==1?'Open':'Close'"></label><br>
+                        </h3>
+                    </tr>
+                </div>
+            </div>
+            <div style="float:left;width:300px; height:300px;
+            margin:3px 2% 0 10px;border-style:solid;border-width:1px;">
+                <div style="margin-top: 3px;margin-left: 5px;margin-bottom: 20px"><h6 style="font-family: 'Adobe Arabic'">控制器</h6></div>
+                <table border="0" th:cellpadding="20px" align="center"th:width="300px">
+
+                    <form th:action="@{/doorcontrol}" method="post" style="margin-top: 30px;margin-left: 10%;margin-right: 10% ">
+
+                        <tr>
+                            <td align="center"><button  class="btn btn-primary" th:text="开门" type="submit" name="action" value="opendoor" ></button></td>
+
+
+
+                            <td align="left"><button  class="btn btn-primary" th:text="关门" type="submit" name="action" value="closedoor"></button></td>
+                        </tr>
+                        <tr>
+                            <td align="center"><button  class="btn btn-primary" th:text="开窗" type="submit" name="action" value="openwindow"></button></td>
+                            <td align="left"><button  class="btn btn-primary" th:text="关窗" type="submit" name="action" value="closewindow"></button></td>
+                        </tr>
+                    </form>
+
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+
+
+<!-- Graphs -->
+
+</body>
+
+</html>
